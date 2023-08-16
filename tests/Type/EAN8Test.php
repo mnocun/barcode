@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Type;
 
-use BarCode\BarCode;
-use BarCode\Code;
-use BarCode\Exception\InvalidCharacterException;
-use BarCode\Exception\InvalidCheckDigitException;
-use BarCode\Exception\InvalidLengthException;
+use BarCode\{BarCode, Code};
+use BarCode\Exception\{InvalidCharacterException, InvalidCheckDigitException, InvalidLengthException};
 use BarCode\Type\EAN8;
 use PHPUnit\Framework\TestCase;
 
@@ -56,7 +53,7 @@ class EAN8Test extends TestCase
 
     public function testGenerateBarCode_GiveCorrectCode_ReturnValidCode(): void
     {
-        $expectedBinaryCode = '10100110010010011011110101000111001110101000010001001110110101';
+        $expectedBinaryCode = '1010011001001001101111010100011010101001110101000010001001110010101';
 
         $ean8 = new EAN8();
         $barCode = $ean8->getBarCode(new Code('12345670'));

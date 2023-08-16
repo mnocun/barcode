@@ -4,29 +4,17 @@ declare(strict_types=1);
 
 namespace BarCode\Type;
 
-use BarCode\BarCode;
-use BarCode\Code;
-use BarCode\Exception\InvalidCharacterException;
-use BarCode\Exception\InvalidCheckDigitException;
-use BarCode\Exception\InvalidLengthException;
-use BarCode\TypeInterface;
+use BarCode\Exception\{InvalidCharacterException, InvalidCheckDigitException, InvalidLengthException};
+use BarCode\{Code, TypeInterface};
 
 abstract class EAN implements TypeInterface
 {
-    public const PATTERN_LEFT = [
-        '0' => [0, 0, 0, 1, 0, 0, 1],
-        '1' => [0, 0, 1, 1, 0, 0, 1],
-        '2' => [0, 0, 1, 0, 0, 1, 1],
-        '3' => [0, 1, 1, 1, 1, 0, 1],
-        '4' => [0, 1, 0, 0, 0, 1, 1],
-        '5' => [0, 1, 1, 0, 0, 0, 1],
-        '6' => [0, 1, 0, 1, 1, 1, 1],
-        '7' => [0, 1, 1, 1, 0, 1, 1],
-        '8' => [0, 1, 1, 0, 1, 1, 1],
-        '9' => [0, 0, 0, 1, 0, 1, 1]
-    ];
+    public const START_GUARD = [1, 0, 1];
+    public const MIDDLE_GUARD = [0, 1, 0, 1, 0];
+    public const END_GUARD = [1, 0, 1];
+
     public const PATTERN_RIGHT = [
-        '0' => [1, 1, 1, 0, 1, 1, 0],
+        '0' => [1, 1, 1, 0, 0, 1, 0],
         '1' => [1, 1, 0, 0, 1, 1, 0],
         '2' => [1, 1, 0, 1, 1, 0, 0],
         '3' => [1, 0, 0, 0, 0, 1, 0],
@@ -37,40 +25,8 @@ abstract class EAN implements TypeInterface
         '8' => [1, 0, 0, 1, 0, 0, 0],
         '9' => [1, 1, 1, 0, 1, 0, 0]
     ];
-    public const START_GUARD = [1, 0, 1];
-    public const MIDDLE_GUARD = [0, 1, 0, 1, 1];
-    public const END_GUARD = [1, 0, 1];
 
     abstract protected function getLength(): int;
-
-    /**
-     * @throws InvalidLengthException
-     * @throws InvalidCharacterException
-     * @throws InvalidCheckDigitException
-     */
-    public function getBarCode(Code $code): BarCode
-    {
-        $this->validateCode($code);
-
-        $barCode = new BarCode();
-        $barCode->addSection(2, self::START_GUARD);
-        $middlePosition = ceil($this->getLength() / 2);
-
-        foreach ($code as $position => $character) {
-            if ($position === $middlePosition) {
-                $barCode->addSection(2, self::MIDDLE_GUARD);
-            }
-
-            $barCode->addSection(
-                1,
-                $position >= $middlePosition ? self::PATTERN_RIGHT[$character] : self::PATTERN_LEFT[$character]
-            );
-        }
-
-        $barCode->addSection(2, self::END_GUARD);
-
-        return $barCode;
-    }
 
     /**
      * @throws InvalidCheckDigitException

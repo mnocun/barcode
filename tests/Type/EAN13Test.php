@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Type;
 
-use BarCode\BarCode;
-use BarCode\Code;
-use BarCode\Exception\InvalidCharacterException;
-use BarCode\Exception\InvalidCheckDigitException;
-use BarCode\Exception\InvalidLengthException;
+use BarCode\{BarCode, Code};
+use BarCode\Exception\{InvalidCharacterException, InvalidCheckDigitException, InvalidLengthException};
 use BarCode\Type\EAN13;
 use PHPUnit\Framework\TestCase;
 

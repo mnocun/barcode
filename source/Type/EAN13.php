@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace BarCode\Type;
 
-use BarCode\BarCode;
-use BarCode\Code;
-use BarCode\Exception\InvalidCharacterException;
-use BarCode\Exception\InvalidCheckDigitException;
-use BarCode\Exception\InvalidLengthException;
+use BarCode\Exception\{InvalidCharacterException, InvalidCheckDigitException, InvalidLengthException};
+use BarCode\{Code, BarCode};
 
 class EAN13 extends EAN
 {
@@ -49,25 +46,6 @@ class EAN13 extends EAN
             '8' => [0, 0, 0, 1, 0, 0, 1],
             '9' => [0, 0, 1, 0, 1, 1, 1]]
     ];
-    public const PATTERN_RIGHT = [
-        '0' => [1, 1, 1, 0, 0, 1, 0],
-        '1' => [1, 1, 0, 0, 1, 1, 0],
-        '2' => [1, 1, 0, 1, 1, 0, 0],
-        '3' => [1, 0, 0, 0, 0, 1, 0],
-        '4' => [1, 0, 1, 1, 1, 0, 0],
-        '5' => [1, 0, 0, 1, 1, 1, 0],
-        '6' => [1, 0, 1, 0, 0, 0, 0],
-        '7' => [1, 0, 0, 0, 1, 0, 0],
-        '8' => [1, 0, 0, 1, 0, 0, 0],
-        '9' => [1, 1, 1, 0, 1, 0, 0]
-    ];
-
-    public const MIDDLE_GUARD = [0, 1, 0, 1, 0];
-
-    protected function getLength(): int
-    {
-        return 13;
-    }
 
     /**
      * @throws InvalidLengthException
@@ -96,5 +74,10 @@ class EAN13 extends EAN
         $barCode->addSection(2, self::END_GUARD);
 
         return $barCode;
+    }
+
+    protected function getLength(): int
+    {
+        return 13;
     }
 }
