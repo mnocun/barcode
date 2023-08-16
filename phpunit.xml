@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit convertErrorsToExceptions="true" stopOnError="false" stopOnFailure="false" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" verbose="true">
+    <testsuites>
+        <testsuite name="Barcode Test">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <include>
+            <directory>./source</directory>
+        </include>
+    </coverage>
+</phpunit>
