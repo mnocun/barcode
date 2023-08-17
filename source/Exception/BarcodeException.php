@@ -6,6 +6,6 @@ namespace BarCode\Exception;
 
 use Exception;
 
-class BarCodeException extends Exception
+class BarcodeException extends Exception
 {
 }

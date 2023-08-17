@@ -8,5 +8,5 @@ use BarCode\Render\Components;
 
 interface FormatInterface
 {
-    public function getComponents(): Components;
+    public function generateComponents(Barcode $barcode): Components;
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Type;
 
-use BarCode\{BarCode, Code};
+use BarCode\{Barcode, Code};
 use BarCode\Exception\{InvalidCharacterException, InvalidCheckDigitException, InvalidLengthException};
 use BarCode\Type\EAN8;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +16,7 @@ class EAN8Test extends TestCase
         $this->expectException(InvalidLengthException::class);
 
         $ean8 = new EAN8();
-        $ean8->getBarCode(new Code('1234567'));
+        $ean8->getBarcode(new Code('1234567'));
     }
 
     public function testGenerateBarCode_InsertTooLongCode_ThrowException(): void
@@ -24,7 +24,7 @@ class EAN8Test extends TestCase
         $this->expectException(InvalidLengthException::class);
 
         $ean8 = new EAN8();
-        $ean8->getBarCode(new Code('123456789'));
+        $ean8->getBarcode(new Code('123456789'));
     }
 
     public function testGenerateBarCode_InsertAlphanumericalCode_ThrowException(): void
@@ -32,7 +32,7 @@ class EAN8Test extends TestCase
         $this->expectException(InvalidCharacterException::class);
 
         $ean8 = new EAN8();
-        $ean8->getBarCode(new Code('123A5670'));
+        $ean8->getBarcode(new Code('123A5670'));
     }
 
     public function testGenerateBarCode_GiveWrongCheckDigitCode_ThrowException(): void
@@ -40,15 +40,15 @@ class EAN8Test extends TestCase
         $this->expectException(InvalidCheckDigitException::class);
 
         $ean8 = new EAN8();
-        $ean8->getBarCode(new Code('12345671'));
+        $ean8->getBarcode(new Code('12345671'));
     }
 
     public function testGenerateBarCode_GiveCorrectCode_ReturnBarCode(): void
     {
         $ean8 = new EAN8();
-        $barCode = $ean8->getBarCode(new Code('12345670'));
+        $barCode = $ean8->getBarcode(new Code('12345670'));
 
-        $this->assertInstanceOf(BarCode::class, $barCode);
+        $this->assertInstanceOf(Barcode::class, $barCode);
     }
 
     public function testGenerateBarCode_GiveCorrectCode_ReturnValidCode(): void
@@ -56,11 +56,11 @@ class EAN8Test extends TestCase
         $expectedBinaryCode = '1010011001001001101111010100011010101001110101000010001001110010101';
 
         $ean8 = new EAN8();
-        $barCode = $ean8->getBarCode(new Code('12345670'));
+        $barCode = $ean8->getBarcode(new Code('12345670'));
 
         $binaryCode = implode(
             '',
-            array_map(fn(bool $flag) => $flag ? '1' : '0',iterator_to_array($barCode->getBinary()))
+            array_map(fn(bool $flag) => $flag ? '1' : '0', iterator_to_array($barCode))
         );
 
         $this->assertSame($expectedBinaryCode, $binaryCode);

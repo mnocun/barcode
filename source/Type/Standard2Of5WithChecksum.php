@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace BarCode\Type;
 
-use BarCode\{BarCode, Code};
+use BarCode\{Barcode, Code};
 
 class Standard2Of5WithChecksum extends Standard2Of5
 {
-    public function getBarCode(Code $code): BarCode
+    public function getBarcode(Code $code): Barcode
     {
         $this->validateCode($code);
 
-        $barcode = new BarCode();
-        $barcode->addSection(1, self::START_SEQUENCE);
+        $barcode = new Barcode($code);
+        $barcode->addSection(self::START_SEQUENCE);
 
         foreach ($code as $character) {
-            $barcode->addSection(1, self::PATTERN[(int)$character]);
+            $barcode->addSection(self::PATTERN[(int)$character]);
         }
 
-        $barcode->addSection(1, self::PATTERN[$this->calculateChecksum($code)]);
-        $barcode->addSection(1, self::STOP_SEQUENCE);
+        $barcode->addSection(self::PATTERN[$this->calculateChecksum($code)]);
+        $barcode->addSection(self::STOP_SEQUENCE);
+
         return $barcode;
     }
 

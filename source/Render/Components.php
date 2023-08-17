@@ -20,6 +20,9 @@ class Components implements IteratorAggregate
         $this->components[] = $componentElement;
     }
 
+    /**
+     * @return Traversable<ComponentInterface>
+     */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->components);

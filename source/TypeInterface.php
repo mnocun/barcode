@@ -6,5 +6,5 @@ namespace BarCode;
 
 interface TypeInterface
 {
-    public function getBarCode(Code $code): BarCode;
+    public function getBarcode(Code $code): Barcode;
 }

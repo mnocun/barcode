@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Type;
 
-use BarCode\{BarCode, Code};
+use BarCode\{Barcode, Code};
 use BarCode\Exception\InvalidCharacterException;
 use BarCode\Type\Standard2Of5WithChecksum;
 use PHPUnit\Framework\TestCase;
@@ -16,15 +16,15 @@ class Standard2Of5WithChecksumTest extends TestCase
         $this->expectException(InvalidCharacterException::class);
 
         $ean8 = new Standard2Of5WithChecksum();
-        $ean8->getBarCode(new Code('87654321A'));
+        $ean8->getBarcode(new Code('87654321A'));
     }
 
     public function testGenerateBarCode_GiveCorrectCode_ReturnBarCode(): void
     {
         $ean8 = new Standard2Of5WithChecksum();
-        $barCode = $ean8->getBarCode(new Code('87654321'));
+        $barCode = $ean8->getBarcode(new Code('87654321'));
 
-        $this->assertInstanceOf(BarCode::class, $barCode);
+        $this->assertInstanceOf(Barcode::class, $barCode);
     }
 
     public function testGenerateBarCode_GiveCorrectCode_ReturnValidCode(): void
@@ -32,11 +32,11 @@ class Standard2Of5WithChecksumTest extends TestCase
         $expectedBinaryCode = '1101101011101010111010101010111011101011101110101011101011101010101011101011101110111010101010111010101110111010101011101011101010111011010110';
 
         $ean8 = new Standard2Of5WithChecksum();
-        $barCode = $ean8->getBarCode(new Code('87654321'));
+        $barCode = $ean8->getBarcode(new Code('87654321'));
 
         $binaryCode = implode(
             '',
-            array_map(fn(bool $flag) => $flag ? '1' : '0', iterator_to_array($barCode->getBinary()))
+            array_map(fn(bool $flag) => $flag ? '1' : '0', iterator_to_array($barCode))
         );
 
         $this->assertSame($expectedBinaryCode, $binaryCode);

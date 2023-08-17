@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace BarCode\Type;
 
 use BarCode\Exception\{InvalidCharacterException, InvalidCheckDigitException, InvalidLengthException};
-use BarCode\{Code, BarCode};
+use BarCode\{Code, Barcode};
 
 class EAN13 extends EAN
 {
@@ -52,26 +52,26 @@ class EAN13 extends EAN
      * @throws InvalidCharacterException
      * @throws InvalidCheckDigitException
      */
-    public function getBarCode(Code $code): BarCode
+    public function getBarcode(Code $code): Barcode
     {
         $this->validateCode($code);
 
         $firstDigit = $code[0];
 
-        $barCode = new BarCode();
-        $barCode->addSection(2, self::START_GUARD);
+        $barCode = new Barcode($code);
+        $barCode->addSection(self::START_GUARD, 1.2);
 
         for ($i = 1; $i < 7; ++$i) {
-            $barCode->addSection(1, self::PATTERN_LEFT[self::PATTERN_FIRST_DIGITS[$firstDigit][$i]][$code[$i]]);
+            $barCode->addSection(self::PATTERN_LEFT[self::PATTERN_FIRST_DIGITS[$firstDigit][$i]][$code[$i]]);
         }
 
-        $barCode->addSection(2, self::MIDDLE_GUARD);
+        $barCode->addSection(self::MIDDLE_GUARD, 1.2);
 
         for (; $i < 13; ++$i) {
-            $barCode->addSection(1, self::PATTERN_RIGHT[$code[$i]]);
+            $barCode->addSection(self::PATTERN_RIGHT[$code[$i]]);
         }
 
-        $barCode->addSection(2, self::END_GUARD);
+        $barCode->addSection(self::END_GUARD, 1.2);
 
         return $barCode;
     }

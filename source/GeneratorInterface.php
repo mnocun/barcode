@@ -6,5 +6,5 @@ namespace BarCode;
 
 interface GeneratorInterface
 {
-    public function generateBarCode(Code $code, TypeInterface $type, FormatInterface $format): string;
+    public function generateBarcode(Code $code, TypeInterface $type, FormatInterface $format): string;
 }
