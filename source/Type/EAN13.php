@@ -59,19 +59,19 @@ class EAN13 extends EAN
         $firstDigit = $code[0];
 
         $barCode = new Barcode($code);
-        $barCode->addSection(self::START_GUARD, 1.2);
+        $barCode->addSection(self::START_GUARD, self::HIGHLIGHTED_LINES);
 
         for ($i = 1; $i < 7; ++$i) {
             $barCode->addSection(self::PATTERN_LEFT[self::PATTERN_FIRST_DIGITS[$firstDigit][$i]][$code[$i]]);
         }
 
-        $barCode->addSection(self::MIDDLE_GUARD, 1.2);
+        $barCode->addSection(self::MIDDLE_GUARD, self::HIGHLIGHTED_LINES);
 
         for (; $i < 13; ++$i) {
             $barCode->addSection(self::PATTERN_RIGHT[$code[$i]]);
         }
 
-        $barCode->addSection(self::END_GUARD, 1.2);
+        $barCode->addSection(self::END_GUARD, self::HIGHLIGHTED_LINES);
 
         return $barCode;
     }

@@ -32,19 +32,19 @@ class EAN8 extends EAN
         $this->validateCode($code);
 
         $barCode = new Barcode($code);
-        $barCode->addSection(self::START_GUARD, 1.2);
+        $barCode->addSection(self::START_GUARD, self::HIGHLIGHTED_LINES);
 
         for ($i = 0; $i < 4; ++$i) {
             $barCode->addSection(self::PATTERN_LEFT[$code[$i]]);
         }
 
-        $barCode->addSection(self::MIDDLE_GUARD, 1.2);
+        $barCode->addSection(self::MIDDLE_GUARD, self::HIGHLIGHTED_LINES);
 
         for (; $i < 8; ++$i) {
             $barCode->addSection(self::PATTERN_RIGHT[$code[$i]]);
         }
 
-        $barCode->addSection(self::END_GUARD, 1.2);
+        $barCode->addSection(self::END_GUARD, self::HIGHLIGHTED_LINES);
 
         return $barCode;
     }

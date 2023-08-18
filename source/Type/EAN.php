@@ -9,6 +9,7 @@ use BarCode\{Code, TypeInterface};
 
 abstract class EAN implements TypeInterface
 {
+    public const HIGHLIGHTED_LINES = 1.1;
     public const START_GUARD = [1, 0, 1];
     public const MIDDLE_GUARD = [0, 1, 0, 1, 0];
     public const END_GUARD = [1, 0, 1];

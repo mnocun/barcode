@@ -6,6 +6,7 @@ namespace BarCode;
 
 use ArrayAccess;
 use ArrayIterator;
+use BarCode\Exception\ReadOnlyException;
 use IteratorAggregate;
 use Traversable;
 
@@ -17,7 +18,7 @@ class Code implements IteratorAggregate, ArrayAccess
 
     public function isNumeric(): bool
     {
-        return is_numeric($this->code);
+        return (bool)preg_match('/^[0-9]+$/', $this->code);
     }
 
     public function length(): int
@@ -45,11 +46,19 @@ class Code implements IteratorAggregate, ArrayAccess
         return $this->code[(int)$offset];
     }
 
+    /**
+     * @throws ReadOnlyException
+     */
     public function offsetSet(mixed $offset, mixed $value): void
     {
+        throw new ReadOnlyException();
     }
 
+    /**
+     * @throws ReadOnlyException
+     */
     public function offsetUnset(mixed $offset): void
     {
+        throw new ReadOnlyException();
     }
 }
