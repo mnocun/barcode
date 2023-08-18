@@ -15,7 +15,7 @@ class HTML implements GeneratorInterface
         $response = '<div style="position: relative">';
 
         foreach ($components as $component) {
-            $response .= "<div style=\"position:absolute;background:rgb({$component->getColor()});width:{$component->getWidth()}em;height:{$component->getHeight()}em;left:{$component->getHorizontalPosition()}em;top:{$component->getVerticalPosition()}em\"></div>";
+            $response .= "<div style=\"position:absolute;background:rgb({$component->getColor()});width:{$component->getWidth()}px;height:{$component->getHeight()}px;left:{$component->getHorizontalPosition()}px;top:{$component->getVerticalPosition()}px\"></div>";
         }
 
         $response .= '</div>';

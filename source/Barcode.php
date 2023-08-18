@@ -11,10 +11,16 @@ use IteratorAggregate;
 
 class Barcode implements IteratorAggregate
 {
+    /**
+     * @var bool[]
+     */
     private array $binarySequence = [];
+    /**
+     * @var float[]
+     */
     private array $heightMap = [];
 
-    public function __construct(private readonly Code $code)
+    public function __construct(private Code $code)
     {
     }
 
@@ -41,7 +47,7 @@ class Barcode implements IteratorAggregate
                 $sectionPosition = $position;
                 $sequencePosition = $position;
                 $sectionHeight = $this->heightMap[$position];
-            } elseif ($position === $sectionPosition + 1 && $sectionHeight === $this->heightMap[$position + 1]) {
+            } elseif ($position === $sectionPosition + 1 && $sectionHeight === $this->heightMap[$sectionPosition + 1]) {
                 ++$sectionWidth;
                 ++$sectionPosition;
             } else {
@@ -59,6 +65,16 @@ class Barcode implements IteratorAggregate
     public function getCode(): Code
     {
         return $this->code;
+    }
+
+    public function getBinaryLength(): int
+    {
+        return count($this->binarySequence);
+    }
+
+    public function getMaxHeightFactor(): float
+    {
+        return empty($this->heightMap) ? 1.0 : max($this->heightMap);
     }
 
     /**

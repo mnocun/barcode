@@ -8,11 +8,11 @@ interface ComponentInterface
 {
     public function getColor(): Color;
 
-    public function getWidth(): int;
+    public function getWidth(): float;
 
-    public function getHeight(): int;
+    public function getHeight(): float;
 
-    public function getVerticalPosition(): int;
+    public function getVerticalPosition(): float;
 
-    public function getHorizontalPosition(): int;
+    public function getHorizontalPosition(): float;
 }

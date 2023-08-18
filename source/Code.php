@@ -12,7 +12,7 @@ use Traversable;
 
 class Code implements IteratorAggregate, ArrayAccess
 {
-    public function __construct(private readonly string $code)
+    public function __construct(private string $code)
     {
     }
 

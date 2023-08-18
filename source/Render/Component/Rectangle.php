@@ -9,10 +9,10 @@ use BarCode\Render\{Color, ComponentInterface};
 class Rectangle implements ComponentInterface
 {
     public function __construct(
-        private int $x,
-        private int $y,
-        private int $width,
-        private int $height,
+        private float $x,
+        private float $y,
+        private float $width,
+        private float $height,
         private Color $color
     ) {}
 
@@ -21,22 +21,22 @@ class Rectangle implements ComponentInterface
         return $this->color;
     }
 
-    public function getWidth(): int
+    public function getWidth(): float
     {
         return $this->width;
     }
 
-    public function getHeight(): int
+    public function getHeight(): float
     {
         return $this->height;
     }
 
-    public function getVerticalPosition(): int
+    public function getVerticalPosition(): float
     {
         return $this->y;
     }
 
-    public function getHorizontalPosition(): int
+    public function getHorizontalPosition(): float
     {
         return $this->x;
     }

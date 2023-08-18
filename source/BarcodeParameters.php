@@ -4,24 +4,18 @@ declare(strict_types=1);
 
 namespace BarCode;
 
-class BarcodeSection
+class BarcodeParameters
 {
     public function __construct(
-        private int   $width,
-        private int   $position,
+        private float $width,
         private float $height
     )
     {
     }
 
-    public function getWidth(): int
+    public function getWidth(): float
     {
         return $this->width;
-    }
-
-    public function getPosition(): int
-    {
-        return $this->position;
     }
 
     public function getHeight(): float

@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace BarCode\Format;
 
-use BarCode\{Barcode, BarcodeSection, FormatInterface};
+use BarCode\{Barcode, BarcodeParameters, BarcodeSection, FormatInterface};
 use BarCode\Render\{Color, Components, Component\Rectangle};
 
 class Basic implements FormatInterface
 {
+    public function __construct(private BarcodeParameters $barcodeParameters)
+    {
+    }
+
     public function generateComponents(Barcode $barcode): Components
     {
         $components = new Components();
+        $singleSectionWidth = $this->barcodeParameters->getWidth() / $barcode->getBinaryLength();
+        $normalizedHeight = $this->barcodeParameters->getHeight() / $barcode->getMaxHeightFactor();
 
         foreach ($barcode->getSections() as $section) {
             $components->addComponent(
                 new Rectangle(
-                    $section->getPosition(),
+                    $section->getPosition() * $singleSectionWidth,
                     0,
-                    $section->getWidth(),
-                    (int)(50 * $this->heightFactor($section)),
+                    $section->getWidth() * $singleSectionWidth,
+                    $normalizedHeight * $this->heightFactor($section),
                     new Color(0, 0, 0)
                 )
             );
