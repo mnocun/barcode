@@ -46,9 +46,9 @@ class EAN8Test extends TestCase
     public function testGenerateBarCode_GiveCorrectCode_ReturnBarCode(): void
     {
         $ean8 = new EAN8();
-        $barCode = $ean8->getBarcode(new Code('12345670'));
+        $barcode = $ean8->getBarcode(new Code('12345670'));
 
-        $this->assertInstanceOf(Barcode::class, $barCode);
+        $this->assertInstanceOf(Barcode::class, $barcode);
     }
 
     public function testGenerateBarCode_GiveCorrectCode_ReturnValidCode(): void
@@ -56,11 +56,11 @@ class EAN8Test extends TestCase
         $expectedBinaryCode = '1010011001001001101111010100011010101001110101000010001001110010101';
 
         $ean8 = new EAN8();
-        $barCode = $ean8->getBarcode(new Code('12345670'));
+        $barcode = $ean8->getBarcode(new Code('12345670'));
 
         $binaryCode = implode(
             '',
-            array_map(fn(bool $flag) => $flag ? '1' : '0', iterator_to_array($barCode))
+            array_map(fn(bool $flag) => $flag ? '1' : '0', iterator_to_array($barcode))
         );
 
         $this->assertSame($expectedBinaryCode, $binaryCode);

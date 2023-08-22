@@ -28,7 +28,15 @@ class Code implements IteratorAggregate, ArrayAccess
 
     public function getIterator(): Traversable
     {
-        return new ArrayIterator(str_split($this->code));
+        return new ArrayIterator($this->getArray());
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getArray(): array
+    {
+        return str_split($this->code);
     }
 
     public function __toString(): string
