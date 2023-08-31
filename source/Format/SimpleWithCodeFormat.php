@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace BarCode\Format;
 
-use BarCode\{Barcode,
-    BarcodeSection,
-    Render\Color,
-    Render\Component\Text,
-    Render\Font\Monospace,
-    Render\Point
-};
-use BarCode\Render\Workspace;
+use BarCode\{Barcode, BarcodeSection,};
+use BarCode\Render\{Workspace, Color, Point, Component\Text, Font\Monospace};
 
 class SimpleWithCodeFormat extends SimpleFormat
 {
