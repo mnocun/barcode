@@ -6,7 +6,7 @@ namespace BarCode\Format;
 
 use BarCode\BarcodeSection;
 
-class BasicWIthDifferentHeight extends Basic
+class GuardFormat extends SimpleFormat
 {
     protected function heightFactor(BarcodeSection $section): float
     {

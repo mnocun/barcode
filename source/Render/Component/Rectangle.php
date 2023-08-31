@@ -4,21 +4,18 @@ declare(strict_types=1);
 
 namespace BarCode\Render\Component;
 
-use BarCode\Render\{Color, ComponentInterface};
+use BarCode\Render\{Color, Drawable, Point};
 
-class Rectangle implements ComponentInterface
+class Rectangle extends Drawable
 {
     public function __construct(
-        private float $x,
-        private float $y,
+        Point         $startPoint,
         private float $width,
         private float $height,
-        private Color $color
-    ) {}
-
-    public function getColor(): Color
+        Color         $color
+    )
     {
-        return $this->color;
+        parent::__construct($startPoint, $color);
     }
 
     public function getWidth(): float
@@ -29,15 +26,5 @@ class Rectangle implements ComponentInterface
     public function getHeight(): float
     {
         return $this->height;
-    }
-
-    public function getVerticalPosition(): float
-    {
-        return $this->y;
-    }
-
-    public function getHorizontalPosition(): float
-    {
-        return $this->x;
     }
 }

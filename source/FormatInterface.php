@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BarCode;
 
-use BarCode\Render\Components;
+use BarCode\Render\Workspace;
 
 interface FormatInterface
 {
-    public function generateComponents(Barcode $barcode): Components;
+    public function createWorkspace(Barcode $barcode): Workspace;
 }
